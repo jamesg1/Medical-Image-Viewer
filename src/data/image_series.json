@@ -1,104 +1,104 @@
 {
-    "Results": [
-        {
-            "Dicom": "images/image_0.png",
-            "Dicom-overlay": "images/overlay_0.png",
-            "Length": 0
-        },
-        {
-            "Dicom": "images/image_1.png",
-            "Dicom-overlay": "images/overlay_1.png",
-            "Length": 1
-        },
-        {
-            "Dicom": "images/image_2.png",
-            "Dicom-overlay": "images/overlay_2.png",
-            "Length": 2
-        },
-        {
-            "Dicom": "images/image_3.png",
-            "Dicom-overlay": "images/overlay_3.png",
-            "Length": 3
-        },
-        {
-            "Dicom": "images/image_4.png",
-            "Dicom-overlay": "images/overlay_4.png",
-            "Length": 4
-        },
-        {
-            "Dicom": "images/image_5.png",
-            "Dicom-overlay": "images/overlay_5.png",
-            "Length": 5
-        },
-        {
-            "Dicom": "images/image_6.png",
-            "Dicom-overlay": "images/overlay_6.png",
-            "Length": 6
-        },
-        {
-            "Dicom": "images/image_7.png",
-            "Dicom-overlay": "images/overlay_7.png",
-            "Length": 7
-        },
-        {
-            "Dicom": "images/image_8.png",
-            "Dicom-overlay": "images/overlay_8.png",
-            "Length": 8
-        },
-        {
-            "Dicom": "images/image_9.png",
-            "Dicom-overlay": "images/overlay_9.png",
-            "Length": 9
-        },
-        {
-            "Dicom": "images/image_10.png",
-            "Dicom-overlay": "images/overlay_10.png",
-            "Length": 10
-        },
-        {
-            "Dicom": "images/image_11.png",
-            "Dicom-overlay": "images/overlay_11.png",
-            "Length": 11
-        },
-        {
-            "Dicom": "images/image_12.png",
-            "Dicom-overlay": "images/overlay_12.png",
-            "Length": 12
-        },
-        {
-            "Dicom": "images/image_13.png",
-            "Dicom-overlay": "images/overlay_13.png",
-            "Length": 13
-        },
-        {
-            "Dicom": "images/image_14.png",
-            "Dicom-overlay": "images/overlay_14.png",
-            "Length": 14
-        },
-        {
-            "Dicom": "images/image_15.png",
-            "Dicom-overlay": "images/overlay_15.png",
-            "Length": 15
-        },
-        {
-            "Dicom": "images/image_16.png",
-            "Dicom-overlay": "images/overlay_16.png",
-            "Length": 16
-        },
-        {
-            "Dicom": "images/image_17.png",
-            "Dicom-overlay": "images/overlay_17.png",
-            "Length": 17
-        },
-        {
-            "Dicom": "images/image_18.png",
-            "Dicom-overlay": "images/overlay_18.png",
-            "Length": 18
-        },
-        {
-            "Dicom": "images/image_19.png",
-            "Dicom-overlay": "images/overlay_19.png",
-            "Length": 19
-        }
-    ]
+  "Results": [
+    {
+      "Dicom": "images/image_0.png",
+      "Dicom-overlay": "images/overlay_0.png",
+      "Length": 0
+    },
+    {
+      "Dicom": "images/image_1.png",
+      "Dicom-overlay": "images/overlay_1.png",
+      "Length": 1
+    },
+    {
+      "Dicom": "images/image_2.png",
+      "Dicom-overlay": "images/overlay_2.png",
+      "Length": 2
+    },
+    {
+      "Dicom": "images/image_3.png",
+      "Dicom-overlay": "images/overlay_3.png",
+      "Length": 3
+    },
+    {
+      "Dicom": "images/image_4.png",
+      "Dicom-overlay": "images/overlay_4.png",
+      "Length": 4
+    },
+    {
+      "Dicom": "images/image_5.png",
+      "Dicom-overlay": "images/overlay_5.png",
+      "Length": 5
+    },
+    {
+      "Dicom": "images/image_6.png",
+      "Dicom-overlay": "images/overlay_6.png",
+      "Length": 6
+    },
+    {
+      "Dicom": "images/image_7.png",
+      "Dicom-overlay": "images/overlay_7.png",
+      "Length": 7
+    },
+    {
+      "Dicom": "images/image_8.png",
+      "Dicom-overlay": "images/overlay_8.png",
+      "Length": 8
+    },
+    {
+      "Dicom": "images/image_9.png",
+      "Dicom-overlay": "images/overlay_9.png",
+      "Length": 9
+    },
+    {
+      "Dicom": "images/image_10.png",
+      "Dicom-overlay": "images/overlay_10.png",
+      "Length": 10
+    },
+    {
+      "Dicom": "images/image_11.png",
+      "Dicom-overlay": "images/overlay_11.png",
+      "Length": 11
+    },
+    {
+      "Dicom": "images/image_12.png",
+      "Dicom-overlay": "images/overlay_12.png",
+      "Length": 12
+    },
+    {
+      "Dicom": "images/image_13.png",
+      "Dicom-overlay": "images/overlay_13.png",
+      "Length": 13
+    },
+    {
+      "Dicom": "images/image_14.png",
+      "Dicom-overlay": "images/overlay_14.png",
+      "Length": 14
+    },
+    {
+      "Dicom": "images/image_15.png",
+      "Dicom-overlay": "images/overlay_15.png",
+      "Length": 15
+    },
+    {
+      "Dicom": "images/image_16.png",
+      "Dicom-overlay": "images/overlay_16.png",
+      "Length": 16
+    },
+    {
+      "Dicom": "images/image_17.png",
+      "Dicom-overlay": "images/overlay_17.png",
+      "Length": 17
+    },
+    {
+      "Dicom": "images/image_18.png",
+      "Dicom-overlay": "images/overlay_18.png",
+      "Length": 18
+    },
+    {
+      "Dicom": "images/image_19.png",
+      "Dicom-overlay": "images/overlay_19.png",
+      "Length": 19
+    }
+  ]
 }

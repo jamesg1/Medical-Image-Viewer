@@ -1,11 +1,13 @@
 {
   "name": "medical-image-series-viewer",
   "author": "James Gosbell <jamesgosbell@gmail.com>",
-  "description": "Medical Image series viewer",
+  "description": "Medical Image Series Viewer",
   "version": "0.1.0",
   "license": "MIT",
   "private": true,
   "dependencies": {
+    "cornerstone-core": "^2.2.4",
+    "cornerstone-web-image-loader": "^2.1.0",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
     "react-scripts": "1.1.4"
@@ -17,4 +19,3 @@
     "eject": "react-scripts eject"
   }
 }
-
