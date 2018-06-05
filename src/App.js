@@ -16,10 +16,16 @@ class App extends Component {
     };
   }
 
+  /**
+   * Fetch Image Series from JSON API with a Promise
+   */
   componentDidMount() {
     this.fetchImageSeries();
   }
 
+  /**
+   * Fetch Image Series Response
+   */
   fetchImageSeries = () => {
     axios
       .get('/api/image_series.json')
@@ -34,6 +40,10 @@ class App extends Component {
       });
   };
 
+  /**
+   * Sort Response and set Results into State
+   * @param response API Response
+   */
   setImageResults = response => {
     const imageResults = response.Results.sort((a, b) => a.Length - b.Length);
     this.setState({
@@ -46,8 +56,16 @@ class App extends Component {
     });
   };
 
+  /**
+   * Renders Simple Loading Message
+   * @returns {Node} h3 Element
+   */
   showLoadingMessage = () => <h3>Loading Please wait ....</h3>;
 
+  /**
+   * Render Image Series Viewer and pass down state props
+   * @returns {*}
+   */
   renderViewer = () => {
     const { imageResults, stack } = this.state;
     return <ImageSeriesViewer imageResults={imageResults} stack={stack} />;

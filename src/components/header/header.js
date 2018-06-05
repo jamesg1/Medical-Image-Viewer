@@ -5,8 +5,8 @@ import './header.css';
 
 const Header = ({ title }) => (
   <header className="header">
-    <img src={logo} className="App-logo" alt="logo" />
-    <h1 className="header-title">{title}</h1>
+    <img src={logo} className="logo" alt="logo" />
+    <h1 className="title">{title}</h1>
   </header>
 );
 
