@@ -7,6 +7,7 @@
   "private": true,
   "dependencies": {
     "axios": "^0.18.0",
+    "classnames": "^2.2.5",
     "cornerstone-core": "^2.2.4",
     "cornerstone-tools": "^2.3.5",
     "cornerstone-web-image-loader": "^2.1.0",

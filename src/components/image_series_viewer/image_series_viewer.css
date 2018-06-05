@@ -22,6 +22,11 @@
   border-radius: 5px;
 }
 
+.active {
+  color: #fff;
+  background-color: #0062cc;
+}
+
 .viewer__overlay,
 .viewer__contours {
   position: absolute;

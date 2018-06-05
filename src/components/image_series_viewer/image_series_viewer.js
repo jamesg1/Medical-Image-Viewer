@@ -1,4 +1,5 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
+import classNames from 'classnames';
 import Hammer from 'hammerjs';
 import * as cornerstone from 'cornerstone-core';
 import * as cornerstoneTools from 'cornerstone-tools';
@@ -16,8 +17,8 @@ class ImageSeriesViewer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      overlay: true,
-      contours: false,
+      isTrans: true,
+      isContours: false,
       stack: props.stack,
       currentImage: props.stack.imageIds[0]
     };
@@ -177,14 +178,14 @@ class ImageSeriesViewer extends Component {
   toggleOverlay = () => {
     this.setState({
       overlay: !this.state.overlay,
-      contours: false
+      contoursEnabled: false
     });
   };
 
   toggleContours = () => {
     this.setState({
       overlay: false,
-      contours: !this.state.contours
+      contoursEnabled: !this.state.contoursEnabled
     });
   };
 
@@ -206,7 +207,7 @@ class ImageSeriesViewer extends Component {
         ref={svg => {
           this.svg = svg;
         }}
-        className={this.state.contours ? 'viewer__contours' : 'hidden'}
+        className={this.state.contoursEnabled ? 'viewer__contours' : 'hidden'}
         width="320"
         height="320"
       />
@@ -214,20 +215,41 @@ class ImageSeriesViewer extends Component {
     </div>
   );
 
-  renderViewerControls = () => (
-    <div className="viewer__controls">
-      <button className="viewer__button" onClick={this.toggleContours}>
-        Toggle Contours Overlay
-      </button>
-      <button className="viewer__button" onClick={this.toggleOverlay}>
-        Toggle Transparency Overlay
-      </button>
-    </div>
-  );
-
-  renderIntro = () => {
-    <p>To scroll through the Image stack simply </p>;
+  renderViewerControls = () => {
+    const { contoursEnabled, overlay } = this.state;
+    return (
+      <div className="viewer__controls">
+        <button
+          className={classNames(
+            'viewer__button',
+            contoursEnabled ? 'active' : ''
+          )}
+          onClick={this.toggleContours}
+        >
+          Toggle Contours Overlay
+        </button>
+        <button
+          className={classNames('viewer__button', overlay ? 'active' : '')}
+          onClick={this.toggleOverlay}
+        >
+          Toggle Transparency Overlay
+        </button>
+      </div>
+    );
   };
+
+  renderIntro = () => (
+    <Fragment>
+      <p>
+        To scroll through the Image stack scroll either horizontally or
+        vertically.
+      </p>
+      <p>
+        The toggle buttons below control the Contour Overlay and Transparency
+        Overlay.
+      </p>
+    </Fragment>
+  );
 
   render() {
     return (
