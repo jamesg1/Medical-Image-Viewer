@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import Header from './components/header';
 import ImageSeriesViewer from './components/image_series_viewer';
 import './App.css';
 
-export const BASEURI = 'http://localhost:3000';
-
 class App extends Component {
-
   constructor(props) {
     super(props);
+    // Constant for loading the full URL path for each image for Cornerstone
+    this.BASEURI = 'http://localhost:3000';
     this.state = {
       loading: true,
       imageResults: [],
@@ -17,36 +17,50 @@ class App extends Component {
   }
 
   componentDidMount() {
-    fetch('/api/image_series.json', {
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      }
-    })
-      .then((response) => response.json())
-      .then((response) => this.setImageResults(response));
+    this.fetchImageSeries();
   }
+
+  fetchImageSeries = () => {
+    axios
+      .get('/api/image_series.json')
+      .then(response => {
+        this.setImageResults(response.data);
+      })
+      .catch(error => {
+        console.log(
+          'An error has occured trying to retrive image series',
+          error
+        );
+      });
+  };
 
   setImageResults = response => {
     const imageResults = response.Results.sort((a, b) => a.Length - b.Length);
     this.setState({
       imageResults,
       stack: {
-        imageIds: imageResults.map(image => `${BASEURI}/${image.Dicom}`),
+        imageIds: imageResults.map(image => `${this.BASEURI}/${image.Dicom}`),
         currentImageIdIndex: 0
       },
       loading: false
     });
-  }
+  };
+
+  showLoadingMessage = () => <h3>Loading Please wait ....</h3>;
+
+  renderViewer = () => {
+    const { imageResults, stack } = this.state;
+    return <ImageSeriesViewer imageResults={imageResults} stack={stack} />;
+  };
 
   render() {
-    const { loading, imageResults, stack } = this.state;
-    return !loading ? (
+    const { loading } = this.state;
+    return (
       <div className="app">
-        <Header />
-        <ImageSeriesViewer imageResults={imageResults} stack={stack} />
+        <Header title="Medical Image Series Viewer" />
+        {loading ? this.showLoadingMessage() : this.renderViewer()}
       </div>
-    ) : null;
+    );
   }
 }
 

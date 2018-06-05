@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import Hammer from "hammerjs";
+import Hammer from 'hammerjs';
 import * as cornerstone from 'cornerstone-core';
 import * as cornerstoneTools from 'cornerstone-tools';
-import * as cornerstoneWebImageLoader from "cornerstone-web-image-loader";
+import * as cornerstoneWebImageLoader from 'cornerstone-web-image-loader';
 import './image_series_viewer.css';
 
 // Specify External Dependencies for CornerstoneTools Plugin
@@ -12,11 +12,10 @@ cornerstoneTools.external.Hammer = Hammer;
 cornerstoneWebImageLoader.external.cornerstone = cornerstone;
 
 class ImageSeriesViewer extends Component {
-
   constructor(props) {
     super(props);
     this.state = {
-      overlay: 'transparent',
+      overlay: true,
       stack: props.stack,
       currentImage: props.stack.imageIds[0]
     };
@@ -36,27 +35,27 @@ class ImageSeriesViewer extends Component {
     this.setupOverlay();
   }
 
-  setupViewerStack = (viewer) => {
+  setupViewerStack = viewer => {
     const stack = this.state.stack;
-    cornerstoneTools.addStackStateManager(viewer, ["stack"]);
-    cornerstoneTools.addToolState(viewer, "stack", stack);
+    cornerstoneTools.addStackStateManager(viewer, ['stack']);
+    cornerstoneTools.addToolState(viewer, 'stack', stack);
     cornerstoneTools.stackScroll.activate(viewer, 1);
     cornerstoneTools.stackScrollWheel.activate(viewer);
     cornerstoneTools.scrollIndicator.enable(viewer);
-  }
+  };
 
   componentDidUmount() {
-    window.removeEventListener("resize", this.onWindowResize);
-    this.viewer.removeEventListener("cornerstonenewimage", this.onNewImage);
+    window.removeEventListener('resize', this.onWindowResize);
+    this.viewer.removeEventListener('cornerstonenewimage', this.onNewImage);
     cornerstone.disable(this.viewer);
   }
 
   initialiseEventListeners = () => {
-    // Listens for window resize before resizing viewer canvas 
-    window.addEventListener("resize", this.onWindowResize);
+    // Listens for window resize before resizing viewer canvas
+    window.addEventListener('resize', this.onWindowResize);
     // Sets current currentImageIdIndex State
     this.viewer.addEventListener('cornerstonenewimage', this.onNewImage);
-  }
+  };
 
   onNewImage = () => {
     this.setupOverlay();
@@ -64,26 +63,26 @@ class ImageSeriesViewer extends Component {
     this.setState({
       currentImage: enabledElement.image.imageId
     });
-  }
+  };
 
   onWindowResize = () => {
     cornerstone.resize(this.viewer);
-  }
+  };
 
   getImageCountText = () => {
     const { currentImageIdIndex, imageIds } = this.state.stack;
     // This starts the count from 1 rather than 0. eg 1-20 rather than 1-19
     return `${currentImageIdIndex + 1} of ${imageIds.length}`;
-  }
+  };
 
   setupOverlay = () => {
     const url = `images/overlay_${this.state.stack.currentImageIdIndex}.png`;
     this.covertOverlayToCanvas(url);
-  }
+  };
 
-  covertOverlayToCanvas = (url) => {
+  covertOverlayToCanvas = url => {
     let canvas = this.canvas;
-    let ctx = canvas.getContext("2d");
+    let ctx = canvas.getContext('2d');
 
     return new Promise(resolve => {
       var image = new Image();
@@ -119,26 +118,44 @@ class ImageSeriesViewer extends Component {
         resolve(ctx.putImageData(imageData, 0, 0));
       };
     });
-  }
+  };
+
+  toggleOverlay = () => {
+    this.setState({ overlay: !this.state.overlay });
+  };
+
+  renderViewer = () => (
+    <div
+      ref={input => {
+        this.viewer = input;
+      }}
+      className="viewer"
+    >
+      <canvas className="cornerstone-canvas" />
+      <canvas
+        className={this.state.overlay ? 'viewer__overlay' : 'hidden'}
+        ref={canvas => {
+          this.canvas = canvas;
+        }}
+      />
+      <div className="viewer__label">Image: {this.getImageCountText()}</div>
+    </div>
+  );
+
+  renderViewerControls = () => (
+    <div>
+      <button onClick={this.toggleOverlay}>Toggle Transparency Overlay</button>
+    </div>
+  );
 
   render() {
     return (
       <div className="container">
-        <div
-          ref={input => {
-            this.viewer = input;
-          }}
-          className="viewer">
-          <canvas className="cornerstone-canvas" />
-          <canvas className="viewer__overlay" ref={canvas => { this.canvas = canvas }} />
-          <div className="viewer__label">
-            Image: {this.getImageCountText()}
-          </div>
-        </div>
+        {this.renderViewer()}
+        {this.renderViewerControls()}
       </div>
     );
   }
-
 }
 
 export default ImageSeriesViewer;
