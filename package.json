@@ -10,7 +10,7 @@
     "cornerstone-core": "^2.2.4",
     "cornerstone-tools": "^2.3.5",
     "cornerstone-web-image-loader": "^2.1.0",
-    "d3-contour": "^1.2.0",
+    "d3": "^5.4.0",
     "enzyme": "^3.3.0",
     "enzyme-adapter-react-16": "^1.1.1",
     "enzyme-to-json": "^3.3.4",

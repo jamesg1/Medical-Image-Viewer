@@ -5,7 +5,25 @@
   height: 320px;
 }
 
-.viewer__overlay {
+.viewer__controls > button {
+  margin: 10px;
+}
+
+.viewer__button {
+  cursor: pointer;
+  outline: none;
+  padding: 11px;
+  background-color: #2185d0;
+  color: #fff;
+  box-shadow: none;
+  text-shadow: none;
+  background-image: none;
+  border: none;
+  border-radius: 5px;
+}
+
+.viewer__overlay,
+.viewer__contours {
   position: absolute;
   top: 0;
   right: 0;
@@ -17,6 +35,10 @@
   position: absolute;
   top: 10px;
   right: 10px;
+}
+
+.viewer__controls {
+  margin: 10px;
 }
 
 .hidden {

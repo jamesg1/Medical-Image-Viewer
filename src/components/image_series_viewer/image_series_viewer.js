@@ -3,6 +3,7 @@ import Hammer from 'hammerjs';
 import * as cornerstone from 'cornerstone-core';
 import * as cornerstoneTools from 'cornerstone-tools';
 import * as cornerstoneWebImageLoader from 'cornerstone-web-image-loader';
+import * as d3 from 'd3';
 import './image_series_viewer.css';
 
 // Specify External Dependencies for CornerstoneTools Plugin
@@ -16,6 +17,7 @@ class ImageSeriesViewer extends Component {
     super(props);
     this.state = {
       overlay: true,
+      contours: false,
       stack: props.stack,
       currentImage: props.stack.imageIds[0]
     };
@@ -32,7 +34,7 @@ class ImageSeriesViewer extends Component {
       this.setupViewerStack(viewer);
       this.initialiseEventListeners();
     });
-    this.setupOverlay();
+    this.setupImageOverlay();
   }
 
   setupViewerStack = viewer => {
@@ -58,7 +60,7 @@ class ImageSeriesViewer extends Component {
   };
 
   onNewImage = () => {
-    this.setupOverlay();
+    this.setupImageOverlay();
     const enabledElement = cornerstone.getEnabledElement(this.viewer);
     this.setState({
       currentImage: enabledElement.image.imageId
@@ -75,15 +77,68 @@ class ImageSeriesViewer extends Component {
     return `${currentImageIdIndex + 1} of ${imageIds.length}`;
   };
 
-  setupOverlay = () => {
+  setupImageOverlay = () => {
     const url = `images/overlay_${this.state.stack.currentImageIdIndex}.png`;
-    this.covertOverlayToCanvas(url);
+    this.drawContours(url);
+    this.covertImageToCanvas(url);
   };
 
-  covertOverlayToCanvas = url => {
-    let canvas = this.canvas;
-    let ctx = canvas.getContext('2d');
+  drawContours = url => {
+    let values;
 
+    imagex(url).then(function(image) {
+      var m = image.height,
+        n = image.width;
+      values = new Array(n * m);
+      for (var j = 0, k = 0; j < m; ++j) {
+        for (var i = 0; i < n; ++i, ++k) {
+          values[k] = image.data[k << 2] / 255;
+        }
+      }
+      x();
+    });
+    function imagex(url) {
+      return new Promise(function(resolve) {
+        var image = new Image();
+        image.src = url;
+        image.onload = function() {
+          var canvas = document.createElement('canvas');
+          canvas.width = image.width;
+          canvas.height = image.height;
+          var context = canvas.getContext('2d');
+          context.drawImage(image, 0, 0);
+          resolve(context.getImageData(0, 0, image.width, image.height));
+        };
+      });
+    }
+
+    function x() {
+      var svg = d3.select('svg'),
+        svgWidth = +svg.attr('width'),
+        svgHeight = +svg.attr('height'),
+        contours = d3.contours().size([svgWidth, svgHeight]);
+      var color = d3
+        .scaleLinear()
+        .domain([0.1, 0.4, 0.8])
+        .range(['transparent', 'green', 'red']);
+      svg.selectAll('*').remove();
+      svg
+        .selectAll('path')
+        .data(contours(values))
+        .enter()
+        .append('path')
+        .attr('d', d3.geoPath(d3.geoIdentity().scale(svgWidth / svgHeight)))
+        .attr('stroke-width', 1.2)
+        .attr('fill', 'transparent')
+        .attr('stroke', function(d, i) {
+          return color(d.value);
+        });
+    }
+  };
+
+  covertImageToCanvas = url => {
+    let canvas = this.canvasOverlay;
+    let ctx = canvas.getContext('2d');
     return new Promise(resolve => {
       var image = new Image();
       image.src = url;
@@ -92,7 +147,6 @@ class ImageSeriesViewer extends Component {
         canvas.height = image.height;
         ctx.globalAlpha = 0.7;
         ctx.drawImage(image, 0, 0);
-
         let imageData = ctx.getImageData(0, 0, image.width, image.height);
         let data = imageData.data;
 
@@ -121,7 +175,17 @@ class ImageSeriesViewer extends Component {
   };
 
   toggleOverlay = () => {
-    this.setState({ overlay: !this.state.overlay });
+    this.setState({
+      overlay: !this.state.overlay,
+      contours: false
+    });
+  };
+
+  toggleContours = () => {
+    this.setState({
+      overlay: false,
+      contours: !this.state.contours
+    });
   };
 
   renderViewer = () => (
@@ -135,22 +199,40 @@ class ImageSeriesViewer extends Component {
       <canvas
         className={this.state.overlay ? 'viewer__overlay' : 'hidden'}
         ref={canvas => {
-          this.canvas = canvas;
+          this.canvasOverlay = canvas;
         }}
+      />
+      <svg
+        ref={svg => {
+          this.svg = svg;
+        }}
+        className={this.state.contours ? 'viewer__contours' : 'hidden'}
+        width="320"
+        height="320"
       />
       <div className="viewer__label">Image: {this.getImageCountText()}</div>
     </div>
   );
 
   renderViewerControls = () => (
-    <div>
-      <button onClick={this.toggleOverlay}>Toggle Transparency Overlay</button>
+    <div className="viewer__controls">
+      <button className="viewer__button" onClick={this.toggleContours}>
+        Toggle Contours Overlay
+      </button>
+      <button className="viewer__button" onClick={this.toggleOverlay}>
+        Toggle Transparency Overlay
+      </button>
     </div>
   );
+
+  renderIntro = () => {
+    <p>To scroll through the Image stack simply </p>;
+  };
 
   render() {
     return (
       <div className="container">
+        {this.renderIntro()}
         {this.renderViewer()}
         {this.renderViewerControls()}
       </div>
