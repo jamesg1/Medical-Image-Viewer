@@ -27,9 +27,8 @@ class ImageSeriesViewer extends Component {
     const { currentImage } = this.state;
 
     cornerstone.enable(viewer);
-    cornerstoneTools.mouseInput.enable(element);
-    cornerstoneTools.mouseWheelInput.enable(viewer);
     cornerstone.loadImage(currentImage).then(image => {
+      cornerstoneTools.mouseWheelInput.enable(viewer);
       cornerstone.displayImage(viewer, image);
       this.setupViewerStack(viewer);
       this.initialiseEventListeners();
