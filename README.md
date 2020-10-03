@@ -3,6 +3,10 @@ This project was built as an initial interview prototype for an Australian AI me
 
 The viewer is utilising core functionality from cornerstone.js and d3.js to show the example medical images.
 
+<img src="https://user-images.githubusercontent.com/3621147/94983922-33f12700-058a-11eb-90e0-7ec6a26bac9f.png" width="500">
+
+View demo - https://medical-image-viewer.vercel.app
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app). 
 
 ### Usage
