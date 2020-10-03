@@ -7,8 +7,6 @@ import './App.css';
 class App extends Component {
   constructor(props) {
     super(props);
-    // Constant for loading the full URL path for each image for Cornerstone
-    this.BASEURI = 'http://localhost:3000';
     this.state = {
       loading: true,
       imageResults: [],
@@ -49,7 +47,7 @@ class App extends Component {
     this.setState({
       imageResults,
       stack: {
-        imageIds: imageResults.map(image => `${this.BASEURI}/${image.Dicom}`),
+        imageIds: imageResults.map(image => `${window.location.href}/${image.Dicom}`),
         currentImageIdIndex: 0
       },
       loading: false
