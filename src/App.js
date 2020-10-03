@@ -47,7 +47,7 @@ class App extends Component {
     this.setState({
       imageResults,
       stack: {
-        imageIds: imageResults.map(image => `${window.location.hostname}/${image.Dicom}`),
+        imageIds: imageResults.map(image => `${window.location.href}/${image.Dicom}`),
         currentImageIdIndex: 0
       },
       loading: false
